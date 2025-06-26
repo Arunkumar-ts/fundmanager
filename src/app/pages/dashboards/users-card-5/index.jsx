@@ -18,7 +18,6 @@ import {
 } from "components/ui";
 
 
-
 export default function UsersCard5() {
   
   const [users, setusers] = useState(null);
@@ -46,8 +45,6 @@ export default function UsersCard5() {
 
   },[searchString, currentPage])
   
- console.log(paginationTotal, currentPage);
- 
   
   return (
     <Page title="Users Card 5">
@@ -75,7 +72,20 @@ export default function UsersCard5() {
           </div>
         </div>
 
-        <div className="mb-5">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3 lg:gap-6">
+          { users && users.length>0 ? users.map((user, index) => (
+            <UserCard
+              key={index}
+              name={user.member_name}
+              username={user.email}
+              phone={user.phone_no}
+            />
+          )):
+          <div className="text-lg">Record Not Fount !</div>
+          }
+        </div>
+
+        <div className="mt-8">
           <div>
             <Pagination
               total={paginationTotal}
@@ -91,19 +101,6 @@ export default function UsersCard5() {
               <PaginationNext/>
             </Pagination>
           </div>
-        </div>
-
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3 lg:gap-6">
-          { users && users.length>0 ? users.map((user, index) => (
-            <UserCard
-              key={index}
-              name={user.member_name}
-              username={user.email}
-              phone={user.phone_no}
-            />
-          )):
-          <div className="text-lg">Record Not Fount !</div>
-          }
         </div>
 
       </div>
