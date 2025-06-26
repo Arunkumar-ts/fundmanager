@@ -1,0 +1,16 @@
+{
+  "nav": {
+    "dashboards": {
+      "dashboards": "Dashboards",
+      "home": "Home"
+    },
+    "settings": {
+      "settings": "Settings",
+      "general": "General",
+      "appearance": "Appearance"
+    },
+    "friends":{
+      "friends":"Friends"
+    }
+  }
+}
