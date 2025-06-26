@@ -10,30 +10,44 @@ import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 
 // Local Imports
 import { Input } from "components/ui";
+import {
+  Pagination,
+  PaginationItems,
+  PaginationNext,
+  PaginationPrevious,
+} from "components/ui";
+
 
 
 export default function UsersCard5() {
   
   const [users, setusers] = useState(null);
   const [searchString, setSearchString] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [paginationTotal, setPaginationTotal] = useState(null);
   useEffect(()=>{
     
     async function getUser(){
       try {
         const response = await axios.post('http://localhost:3000/member/list',
         {
-            pageSize: 20,
-            pageIndex: 0,
+            pageSize: 6,
+            pageIndex: currentPage-1,
             searchString:searchString
         });
-        setusers(response.data.data.members)
+        setusers(response.data.data.members);
+        const totalRows = response.data.data.totalRows; 
+        setPaginationTotal(Math.ceil(totalRows/6));
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     }
     getUser();
 
-  },[searchString])
+  },[searchString, currentPage])
+  
+ console.log(paginationTotal, currentPage);
+ 
   
   return (
     <Page title="Users Card 5">
@@ -58,6 +72,24 @@ export default function UsersCard5() {
                 prefix={<MagnifyingGlassIcon className="size-4.5" />}
               />
             </div>
+          </div>
+        </div>
+
+        <div className="mb-5">
+          <div>
+            <Pagination
+              total={paginationTotal}
+              value={currentPage} 
+              onChange={setCurrentPage}
+              classNames={{
+                root: "gap-1.5 bg-transparent dark:bg-transparent",
+                control: "bg-gray-150 dark:bg-surface-2",
+              }}
+            >
+              <PaginationPrevious/>
+              <PaginationItems />
+              <PaginationNext/>
+            </Pagination>
           </div>
         </div>
 
