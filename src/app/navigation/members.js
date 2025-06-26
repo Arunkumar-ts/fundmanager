@@ -14,19 +14,11 @@ export const members = {
     Icon: UserIcon,
     childs: [
         {
-            id: 'members.home',
-            path: path(ROOT_MEMBERS, '/home'),
+            id: 'members.members',
+            path: path(ROOT_MEMBERS, '/members'),
             type: NAV_TYPE_ITEM,
-            title: 'Home',
-            transKey: 'Home',
-            Icon: UserIcon,
-        },
-        {
-            id: 'members.user2',
-            path: path(ROOT_MEMBERS, '/user2'),
-            type: NAV_TYPE_ITEM,
-            title: 'User2',
-            transKey: 'User2',
+            title: 'Members',
+            transKey: 'Members',
             Icon: UserIcon,
         },
     ]

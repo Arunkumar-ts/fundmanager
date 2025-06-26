@@ -32,7 +32,6 @@ const protectedRoutes = {
                 Component: (await import("app/pages/dashboards/home")).default,
               }),
             },
-            
           ],
         },
         {
@@ -40,16 +39,10 @@ const protectedRoutes = {
           children: [
             {
               index: true,
-              element: <Navigate to="/members/home" />,
+              element: <Navigate to="/members/members" />,
             },
             {
-              path: "home",
-              lazy: async () => ({
-                Component: (await import("app/pages/dashboards/home")).default,
-              }),
-            },
-            {
-              path: "user2",
+              path: "members",
               lazy: async () => ({
                 Component: (await import("app/pages/dashboards/users-card-5")).default,
               }),
@@ -61,12 +54,12 @@ const protectedRoutes = {
           children: [
             {
               index: true,
-              element: <Navigate to="/payments/home" />,
+              element: <Navigate to="/payments/payments" />,
             },
             {
-              path: "home",
+              path: "payments",
               lazy: async () => ({
-                Component: (await import("app/pages/dashboards/home")).default,
+                Component: (await import("app/pages/payments")).default,
               }),
             },
           ]

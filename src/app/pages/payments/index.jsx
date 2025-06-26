@@ -1,6 +1,6 @@
 // Local Imports
 import { Page } from "components/shared/Page";
-import { UserCard } from "./UserCard";
+// import  PaymentCard  from "./PaymentCard";
 
 // import { useFuse } from "hooks";
 import { useEffect, useState } from "react";
@@ -18,41 +18,34 @@ import {
 } from "components/ui";
 
 
-export default function UsersCard5() {
+export default function Payments() {
   
-  const [users, setusers] = useState(null);
+  const [payments, setpayments] = useState(null);
   const [searchString, setSearchString] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [paginationTotal, setPaginationTotal] = useState(null);
-  const [pageSize, setPageSize] = useState(6);
-  const [totalRows, setTotalRows] = useState(null);
-
   useEffect(()=>{
     
     async function getUser(){
       try {
-        const response = await axios.post('http://localhost:3000/member/list',
+        const response = await axios.post('http://localhost:3000/payment/list',
         {
-            pageSize: pageSize,
+            pageSize: 6,
             pageIndex: currentPage-1,
             searchString:searchString
         });
-        setusers(response.data.data.members);
-        setTotalRows(response.data.data.totalRows)
-        const totalRows1 = response.data.data.totalRows; 
-        setPaginationTotal(Math.ceil(Number(totalRows1)/pageSize));
+        setpayments(response.data.data.payments);
+        const totalRows = response.data.data.totalRows; 
+        setPaginationTotal(Math.ceil(totalRows/6));
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     }
     getUser();
 
-  },[searchString, currentPage, pageSize])
+  },[searchString, currentPage])
   
-  const handlePageSize = (e)=>{
-    setCurrentPage(1);
-    setPageSize(Number(e.target.value));
-  }
+  console.log(payments);
   
   return (
     <Page title="Users Card 5">
@@ -81,40 +74,9 @@ export default function UsersCard5() {
         </div>
 
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3 lg:gap-6">
-          { users && users.length>0 ? users.map((user, index) => (
-            <UserCard
-              key={index}
-              name={user.member_name}
-              username={user.email}
-              phone={user.phone_no}
-            />
-          )):
-          <div className="text-lg">Record Not Fount !</div>
-          }
         </div>
 
-        <div className="mt-10 flex flex-col sm:flex-row justify-between items-center gap-3   ">
-          <div>
-              <div>
-                <span>Show </span>
-                 
-                <select
-                  id="rowsPerPage"
-                  value={pageSize}
-                  onChange={handlePageSize}
-                  className="rounded-md border border-gray-300 bg-white px-3 py-1 text-sm shadow-sm focus:outline-none focus:ring-1 focus:ring-primary"
-                >
-                  <option value={6}>6</option>
-                  <option value={9}>9</option>
-                  <option value={20}>20</option>
-                  <option value={50}>50</option>
-                </select>
-
-                <span>  entries</span>
-                
-              </div>
-          </div>
-          
+        <div className="mt-8">
           <div>
             <Pagination
               total={paginationTotal}
@@ -130,11 +92,6 @@ export default function UsersCard5() {
               <PaginationNext/>
             </Pagination>
           </div>
-          
-          <div>
-              <div>{currentPage === 1 ? currentPage : pageSize * (currentPage-1)} - {(currentPage*pageSize)>totalRows ? totalRows : currentPage*pageSize } of {totalRows} entries</div>
-          </div>
-
         </div>
 
       </div>

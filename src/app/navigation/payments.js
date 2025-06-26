@@ -14,11 +14,11 @@ export const payments = {
     Icon: WalletIcon,
     childs: [
         {
-            id: 'payments.home',
-            path: path(ROOT_MEMBERS, '/home'),
+            id: 'payments.payments',
+            path: path(ROOT_MEMBERS, '/payments'),
             type: NAV_TYPE_ITEM,
-            title: 'Home',
-            transKey: 'Home',
+            title: 'Payments',
+            transKey: 'Payments',
             Icon: WalletIcon,
         },
     ]
