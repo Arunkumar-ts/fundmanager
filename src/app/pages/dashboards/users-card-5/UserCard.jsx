@@ -1,63 +1,72 @@
+// react icons
+import { MdEdit } from "react-icons/md";
+import { MdDelete } from "react-icons/md";
+import {
+  EnvelopeIcon,
+  UserIcon,
+  PhoneIcon,
+} from "@heroicons/react/20/solid";
 // Import Dependencies
 import PropTypes from "prop-types";
 
 // Local Imports
 import { Avatar, Card, Button } from "components/ui";
-import { Highlight } from "components/shared/Highlight";
 
-// react icons
-import { MdEdit } from "react-icons/md";
-import { MdDelete } from "react-icons/md";
-import { FaInfo } from "react-icons/fa";
 // ----------------------------------------------------------------------
 
-export function UserCard({ name, avatar, username, query }) {
+export function UserCard({ name, avatar=null, username, phone }) {
   return (
-    <Card className="flex flex-row justify-between space-x-2 p-4 sm:p-5 ">
+   <Card className="p-3 sm:p-4">
+    
+    <div className="flex justify-between items-start">
       <div>
-        <div className="flex space-x-1 ">
-          <h4 className="truncate text-base font-medium text-gray-800 dark:text-dark-100">
-            <Highlight query={query}>{name}</Highlight>
+        <div className="flex space-x-1">
+          <h4 className="truncate text-xl font-medium text-gray-800 dark:text-dark-100">
+            {name}
           </h4>
-          
         </div>
-        <div
-          className="text-xs-plus transition-colors hover:text-gray-800 dark:hover:text-dark-50"
-        >
-          <Highlight query={query}>{username}</Highlight>
-        </div>
-        <div
-          className="text-xs-plus transition-colors hover:text-gray-800 dark:hover:text-dark-50"
-        >
-          <Highlight query={query}>9342772857</Highlight>
-        </div>
-        <div className="flex items-center gap-5 mt-3">
-          <Button variant="soft" color="info" className="size-7 rounded-full" isIcon>
-            <FaInfo className="size-3" />
-          </Button>
-          <Button variant="soft" color="success" className="size-7 rounded-full" isIcon>
-            <MdEdit className="size-4" />
-          </Button>
-          <Button variant="soft" color="error" className="size-7 rounded-full" isIcon>
-            <MdDelete className="size-4" />
-          </Button>
+
+        <div className="space-y-1 mt-1">
+          <div className="flex min-w-0 items-center space-x-1.5">
+            <div className="flex size-5 shrink-0 items-center justify-center rounded-lg bg-primary-600/10 text-primary-600 dark:bg-primary-400/10 dark:text-primary-400">
+              <EnvelopeIcon className="size-3" />
+            </div>
+            <p className="truncate text-sm">{username}</p>
+          </div>
+          <div className="flex min-w-0 items-center space-x-1.5">
+            <div className="flex size-5 shrink-0 items-center justify-center rounded-lg bg-primary-600/10 text-primary-600 dark:bg-primary-400/10 dark:text-primary-400">
+              <PhoneIcon className="size-3" />
+            </div>
+            <p className="truncate text-sm">{phone}</p>
+          </div>
         </div>
       </div>
-      <div className="flex flex-col gap-4">
-        <Avatar
-          size={15}
-          name={name}
-          src={avatar}
-          initialColor="auto"
-          classNames={{
-            display: "mask is-squircle rounded-none",
-          }}
-        />
-        <div className="inline-flex items-center justify-center px-3  rounded-lg bg-primary-600/10  dark:bg-primary-400/10 dark:text-primary-400 text-xs font-medium">
-          ₹ 300
-        </div>
-      </div>
-    </Card>
+
+      <Avatar
+        size={16}
+        name={name}
+        src={avatar}
+        initialColor="auto"
+        classNames={{
+          display: "mask is-squircle rounded-none",
+        }}
+      />
+    </div>
+
+    <div className="flex items-center justify-between gap-2 mt-3">
+      <Button variant="soft" color="info" className="w-10 h-8" isIcon>
+        <UserIcon className="size-4" />
+      </Button>
+      <Button variant="soft" color="success" className="w-10 h-8" isIcon>
+        <MdEdit className="size-4" />
+      </Button>
+      <Button variant="soft" color="error" className="w-10 h-8" isIcon>
+        <MdDelete className="size-4" />
+      </Button>
+    </div>
+
+  </Card>
+
   );
 }
 
@@ -65,5 +74,5 @@ UserCard.propTypes = {
   name: PropTypes.string,
   avatar: PropTypes.string,
   username: PropTypes.string,
-  query: PropTypes.string,
+  phone: PropTypes.string,
 };

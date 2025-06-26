@@ -49,21 +49,9 @@ const protectedRoutes = {
               }),
             },
             {
-              path: "user1",
-              lazy: async () => ({
-                Component: (await import("app/pages/dashboards/users-card-7")).default,
-              }),
-            },
-            {
               path: "user2",
               lazy: async () => ({
                 Component: (await import("app/pages/dashboards/users-card-5")).default,
-              }),
-            },
-            {
-              path: "user3",
-              lazy: async () => ({
-                Component: (await import("app/pages/dashboards/users-card-3")).default,
               }),
             },
           ]

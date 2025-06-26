@@ -1,148 +1,79 @@
 // Local Imports
 import { Page } from "components/shared/Page";
-import { Toolbar } from "./Toolbar";
 import { UserCard } from "./UserCard";
-import { useFuse } from "hooks";
 
-// ----------------------------------------------------------------------
+// import { useFuse } from "hooks";
+import { useEffect, useState } from "react";
 
-const users = [
-  {
-    uid: "1",
-    name: "Konnor Guzman",
-    avatar: "/images/200x200.png",
-    username: "@konnorguzman",
-  },
-  {
-    uid: "2",
-    name: "Travis Fuller",
-    avatar: "/images/200x200.png",
-    username: "@travisfuller",
-  },
-  {
-    uid: "3",
-    name: "Alfredo Elliott",
-    avatar: "/images/200x200.png",
-    username: "@alfredoelliott",
-  },
-  {
-    uid: "4",
-    name: "Derrick Simmons",
-    avatar: null,
-    username: "@derricksimmons",
-  },
-  {
-    uid: "5",
-    name: "Katrina West",
-    avatar: "/images/200x200.png",
-    username: "@katrinawest",
-  },
-  {
-    uid: "6",
-    name: "Henry Curtis",
-    avatar: "/images/200x200.png",
-    username: "@henrycurtis",
-  },
-  {
-    uid: "7",
-    name: "Raul Bradley",
-    avatar: "/images/200x200.png",
-    username: "@raulbradley",
-  },
-  {
-    uid: "8",
-    name: "Samantha Shelton",
-    avatar: null,
-    username: "@samanthashelton",
-  },
-  {
-    uid: "9",
-    name: "Corey Evans",
-    avatar: "/images/200x200.png",
-    username: "@coreyevans",
-  },
-  {
-    uid: "10",
-    name: "Lance Tucker",
-    avatar: null,
-    username: "@lancetucker",
-  },
-  {
-    uid: "11",
-    name: "Anthony Jensen",
-    avatar: "/images/200x200.png",
-    username: "@anthonyjensen",
-  },
-  {
-    uid: "12",
-    name: "Anthony Jensen",
-    avatar: "/images/200x200.png",
-    username: "anthonyjensen",
-  },
-  {
-    uid: "13",
-    name: "Konnor Guzman",
-    avatar: "/images/200x200.png",
-    username: "@konnorguzman",
-  },
-  {
-    uid: "14",
-    name: "Travis Fuller",
-    avatar: "/images/200x200.png",
-    username: "@travisfuller",
-  },
-  {
-    uid: "15",
-    name: "Alfredo Elliott",
-    avatar: "/images/200x200.png",
-    username: "@alfredoelliott",
-  },
-  {
-    uid: "16",
-    name: "Derrick Simmons",
-    avatar: null,
-    username: "@derricksimmons",
-  },
-  {
-    uid: "17",
-    name: "Katrina West",
-    avatar: "/images/200x200.png",
-    username: "@katrinawest",
-  },
-  {
-    uid: "18",
-    name: "Henry Curtis",
-    avatar: "/images/200x200.png",
-    username: "@henrycurtis",
-  },
-];
+import axios from 'axios';
+import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
+
+// Local Imports
+import { Input } from "components/ui";
+
 
 export default function UsersCard5() {
-  const {
-    result: filteredUsers,
-    query,
-    setQuery,
-  } = useFuse(users, {
-    keys: ["name", "username"],
-    threshold: 0.2,
-    matchAllOnEmptyQuery: true,
-  });
+  
+  const [users, setusers] = useState(null);
+  const [searchString, setSearchString] = useState("");
+  useEffect(()=>{
+    
+    async function getUser(){
+      try {
+        const response = await axios.post('http://localhost:3000/member/list',
+        {
+            pageSize: 20,
+            pageIndex: 0,
+            searchString:searchString
+        });
+        setusers(response.data.data.members)
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    }
+    getUser();
 
+  },[searchString])
+  
   return (
     <Page title="Users Card 5">
       <div className="transition-content w-full px-(--margin-x) pb-8">
-        <Toolbar setQuery={setQuery} query={query} />
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3 lg:gap-6">
-          {filteredUsers.map(({ item: user, refIndex }) => (
-            <UserCard
-              key={refIndex}
-              name={user.name}
-              avatar={user.avatar}
-              username={user.username}
-              query={query}
-            />
-          ))}
+
+        <div className="flex items-center justify-between py-5 lg:py-6 gap-y-2 flex-nowrap">
+          <div className="flex items-center space-x-1">
+            <h2 className="truncate text-xl font-medium text-gray-700 dark:text-dark-50 lg:text-2xl">
+              Members
+            </h2>
+          </div>
+          <div className="w-auto">
+            <div className="flex items-center space-x-1">
+              <Input
+                classNames={{
+                  input: "h-8 text-md",
+                  root: "w-48 sm:w-60",
+                }}
+                value={searchString}
+                onChange= {(e)=>setSearchString(e.target.value)}
+                placeholder="Search Users ..."
+                prefix={<MagnifyingGlassIcon className="size-4.5" />}
+              />
+            </div>
+          </div>
         </div>
+
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3 lg:gap-6">
+          { users && users.length>0 ? users.map((user, index) => (
+            <UserCard
+              key={index}
+              name={user.member_name}
+              username={user.email}
+              phone={user.phone_no}
+            />
+          )):
+          <div className="text-lg">Record Not Fount !</div>
+          }
+        </div>
+
       </div>
     </Page>
   );

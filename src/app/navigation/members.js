@@ -22,28 +22,11 @@ export const members = {
             Icon: UserIcon,
         },
         {
-            id: 'members.user1',
-            path: path(ROOT_MEMBERS, '/user1'),
-            type: NAV_TYPE_ITEM,
-            title: 'User1',
-            transKey: 'User1',
-            Icon: UserIcon,
-        },
-        {
             id: 'members.user2',
             path: path(ROOT_MEMBERS, '/user2'),
             type: NAV_TYPE_ITEM,
             title: 'User2',
             transKey: 'User2',
-            Icon: UserIcon,
-        },
-        
-        {
-            id: 'members.user3',
-            path: path(ROOT_MEMBERS, '/user3'),
-            type: NAV_TYPE_ITEM,
-            title: 'User3',
-            transKey: 'User3',
             Icon: UserIcon,
         },
     ]
