@@ -78,7 +78,7 @@ const protectedRoutes = {
             {
               path: "home",
               lazy: async () => ({
-                Component: (await import("app/pages/dashboards/home")).default,
+                Component: (await import("app/pages/payments")).default,
               }),
             },
           ]
