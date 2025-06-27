@@ -22,7 +22,7 @@ export default function SignIn() {
   } = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
-      username: "username1",
+      username: "username",
       password: "password",
     },
   });

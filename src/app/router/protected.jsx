@@ -81,6 +81,18 @@ const protectedRoutes = {
                 Component: (await import("app/pages/payments")).default,
               }),
             },
+            {
+              path:'payments1',
+              lazy: async () => ({
+                Component: (await import("app/pages/payments1")).default,
+              }),
+            },
+            {
+              path:'payments2',
+              lazy: async () => ({
+                Component: (await import("app/pages/payments2")).default,
+              }),
+            }
           ]
         }
       ],

@@ -24,7 +24,7 @@ export default function UsersCard5() {
   const [searchString, setSearchString] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [paginationTotal, setPaginationTotal] = useState(null);
-  const [pageSize, setPageSize] = useState(9);
+  const [pageSize, setPageSize] = useState(8);
   const [totalRows, setTotalRows] = useState(null);
 
   useEffect(()=>{
@@ -81,7 +81,7 @@ export default function UsersCard5() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3 lg:gap-6">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-3 sm:gap-5 lg:grid-cols-4 lg:gap-6">
           { payments && payments.length>0 ? payments.map((payment, index) => (
             <PaymentCard
               key={index}
@@ -101,10 +101,10 @@ export default function UsersCard5() {
               id="rowsPerPage"
               value={pageSize}
               onChange={handlePageSize}
-              className="rounded-full bg-white px-2 py-0.5 text-xs focus:outline-none"
+              className="rounded-full bg-white px-2 py-1 text-xs focus:outline-none"
             >
-              <option value={6}>6</option>
-              <option value={9}>9</option>
+              <option value={8}>8</option>
+              <option value={12}>12</option>
               <option value={20}>20</option>
               <option value={50}>50</option>
             </Select>

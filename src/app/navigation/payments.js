@@ -21,5 +21,21 @@ export const payments = {
             transKey: 'Home',
             Icon: WalletIcon,
         },
+        {
+            id:'payments.payments1',
+            path: path(ROOT_MEMBERS, "/payments1"),
+            type: NAV_TYPE_ITEM,
+            title: "Payments1",
+            transKey: "Payments1",
+            Icon: WalletIcon,
+        },
+        {
+            id:'payments.payments2',
+            path: path(ROOT_MEMBERS, "/payments2"),
+            type: NAV_TYPE_ITEM,
+            title: "Payments2",
+            transKey: "Payments2",
+            Icon: WalletIcon,
+        }
     ]
 }
