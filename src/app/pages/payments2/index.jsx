@@ -3,7 +3,7 @@ import { Page } from "components/shared/Page";
 // import { useFuse } from "hooks";
 import { useEffect, useState } from "react";
 
-import axios from 'axios';
+import { getpayments } from "services/getpayments.service";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { PaymentCard } from "./PaymentCard";
 
@@ -31,16 +31,16 @@ export default function UsersCard5() {
     
     async function getUser(){
       try {
-        const response = await axios.post('http://localhost:3000/payment/list',
+        const response = await getpayments('http://localhost:3000/payment/list',
         {
             pageSize: pageSize,
             pageIndex: currentPage-1,
             searchString:searchString
         });
         
-        setPayments(response.data.data.payments);
-        setTotalRows(response.data.data.totalRows)
-        const totalRows1 = response.data.data.totalRows; 
+        setPayments(response.payments);
+        setTotalRows(response.totalRows)
+        const totalRows1 = response.totalRows; 
         setPaginationTotal(Math.ceil(Number(totalRows1)/pageSize));
       } catch (error) {
         console.error('Error fetching data:', error);

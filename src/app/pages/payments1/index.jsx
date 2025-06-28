@@ -26,6 +26,7 @@ export default function UsersCard5() {
   const [paginationTotal, setPaginationTotal] = useState(null);
   const [pageSize, setPageSize] = useState(9);
   const [totalRows, setTotalRows] = useState(null);
+  const [isLoading, setisLoadiong] = useState(true);
 
   useEffect(()=>{
     
@@ -42,8 +43,10 @@ export default function UsersCard5() {
         setTotalRows(response.totalRows)
         const totalRows1 = response.totalRows; 
         setPaginationTotal(Math.ceil(Number(totalRows1)/pageSize));
+        setisLoadiong(false);
       } catch (error) {
-        console.error('Error fetching data:', error);
+        setisLoadiong(false);
+        console.log('Error fetching data:', error);
       }
     }
     getUser();
@@ -54,7 +57,8 @@ export default function UsersCard5() {
     setCurrentPage(1);
     setPageSize(Number(e.target.value));
   }
-    
+  
+  
   return (
     <Page title="Users Card 5">
       <div className="transition-content w-full px-(--margin-x) pb-8">
@@ -82,18 +86,22 @@ export default function UsersCard5() {
         </div>
 
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3 lg:gap-6">
-          { payments && payments.length>0 ? payments.map((payment, index) => (
+          { !isLoading && payments && payments.length>0 ? payments.map((payment, index) => (
             <PaymentCard
               key={index}
               payment={payment}
             />
           )):
-          <div className="text-lg m-5">Record Not Fount !</div>
+          <div className="text-lg m-5">Record Not Fount!</div>
           }
         </div>
+        
+        { isLoading && payments===null && 
+          <div>Loading...</div>
+        }
           
-        { payments && payments.length>0 &&
-        <div className="mt-10 flex flex-col-reverse sm:flex-row justify-between items-center gap-3   ">
+        { !isLoading && payments && payments.length>0 &&
+        <div className="mt-10 flex flex-col sm:flex-row justify-between items-center gap-3 ">
           
           <div className="flex space-x-2">
             <span>Show </span>
@@ -139,3 +147,5 @@ export default function UsersCard5() {
     </Page>
   );
 }
+
+ 

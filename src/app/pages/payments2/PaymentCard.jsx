@@ -15,11 +15,7 @@ export function PaymentCard({ payment }) {
     <Card className="flex p-3.5 flex-col space-y-2">
       <div>
         <div className="flex">
-          <Avatar size={11}  name={payment.member.member_name.toUpperCase()} initialColor="auto"
-            classNames={{
-              display: "mask is-squircle rounded-none text-xs-plus",
-            }}
-          />
+          <Avatar size={11}  name={payment.member.member_name.toUpperCase()} initialColor="auto" />
           <div className="mx-2">
             <div className="truncate text-sm font-medium text-gray-800 dark:text-dark-100">
               {payment.member.member_name
@@ -40,11 +36,11 @@ export function PaymentCard({ payment }) {
       <div>
         <div className="flex justify-between items-center">
           <div className='flex justify-between'>
-            <Button variant="soft" color="info" className="size-7 me-3 " isIcon>
-              <MdEdit className="size-5" />
+            <Button variant="soft" color="info" className="size-7 me-3 rounded-full" isIcon>
+              <MdEdit className="size-4.5" />
             </Button>
-            <Button variant="soft" color="error" className="size-7" isIcon>
-              <MdDelete className="size-5" />
+            <Button variant="soft" color="error" className="size-7 rounded-full" isIcon>
+              <MdDelete className="size-4.5" />
             </Button>
           </div>
           <div>
